@@ -1,0 +1,3 @@
+[submodule "3rdparty/RibbonUI"]
+	path = 3rdparty/RibbonUI
+	url = https://github.com/mentalfl0w/RibbonUI.git
