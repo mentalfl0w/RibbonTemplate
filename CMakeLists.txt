@@ -33,7 +33,9 @@ set(PROJECT_BUNDLE_NAME RibbonUITemplate) # Edit the executable file name here
 find_package(Qt6 COMPONENTS Quick REQUIRED) # Find your needed packages
 
 set(sources_files source/main.cpp) # Add your source files here, list all source files is RECOMMEND because it's more clear for maintenance
-set(qml_files qml/template.qml qml/about.qml qml/components/RibbonMessageListViewExample.qml) # Add your QML files here
+set(qml_files qml/template.qml qml/about.qml qml/components/TabBar.qml
+    qml/components/MainView.qml
+) # Add your QML files here
 set(resource_files resources/imgs/heart.png resources/imgs/search.png) # Add your resource files here
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug") # Set the app's output dir
@@ -41,6 +43,8 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug") # Set the app's output dir
 else()
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output/release)
 endif()
+
+set(version_str "${PROJECT_VERSION_MAJOR},${PROJECT_VERSION_MINOR},${PROJECT_VERSION_PATCH}")
 
 if (WIN32)
     configure_file(.cmake/win_app.rc.in ${CMAKE_BINARY_DIR}/win_app.rc) # Configure Windows' rc file
@@ -101,7 +105,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     OUTPUT_NAME ${PROJECT_BUNDLE_NAME}
 )
 
-set(version_str "${PROJECT_VERSION_MAJOR},${PROJECT_VERSION_MINOR},${PROJECT_VERSION_PATCH}")
 target_compile_definitions(${PROJECT_NAME} PRIVATE RIBBONTEMPLATE_VERSION=${version_str}) # If you need to get app version in source files, edit this
 target_compile_definitions(${PROJECT_NAME} PRIVATE RIBBONTEMPLATE_URI="${PROJECT_NAME}") # If you use custom QML module URI, REMEMBER edit this
 
