@@ -21,6 +21,15 @@ if(APPLE)
     set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
 endif()
 
+set(QWINDOWKIT_BUILD_STATIC ON)
+set(QWINDOWKIT_BUILD_EXAMPLES OFF)
+set(QWINDOWKIT_BUILD_QUICK ON)
+set(QWINDOWKIT_BUILD_WIDGETS OFF)
+set(QWINDOWKIT_ENABLE_STYLE_AGENT ON)
+set(QWINDOWKIT_INSTALL OFF)
+add_subdirectory(3rdparty/qwindowkit) # Add qwindowkit into build tree(due to qwindowkit qmsetup's bug)
+
+set(RIBBONUI_BUILD_QWINDOWKIT OFF)
 set(RIBBONUI_BUILD_EXAMPLES OFF)
 add_subdirectory(3rdparty/RibbonUI) # Add RibbonUI into build tree
 
@@ -144,6 +153,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${PROJECT_SOURCE_DIR}/include
-    ${PROJECT_SOURCE_DIR}/3rdparty/RibbonUI/lib_source
 ) # add `include` dir to include path
 

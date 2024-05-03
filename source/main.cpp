@@ -2,14 +2,12 @@
 #include <QQmlApplicationEngine>
 #include <QtQml>
 #include "ribbonui.h"
+#include "definitions.h"
 
 #ifdef RIBBONUI_BUILD_STATIC_LIB
 Q_IMPORT_QML_PLUGIN(RibbonUIPlugin)
 #endif
 
-#define STR(x) #x
-#define JOIN(a,b,c) STR(a.b.c)
-#define VER_JOIN(x) JOIN(x)
 int main(int argc, char *argv[])
 {
     RibbonUI::init(); // Must set before QGuiApplication
