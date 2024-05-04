@@ -7,6 +7,7 @@ on:
       - 'include/**'
       - 'source/**'
       - 'scripts/**'
+      - '3rdparty/**'
       - '.github/workflows/ubuntu-static.yml'
   pull_request:
     paths:
@@ -14,6 +15,7 @@ on:
       - 'include/**'
       - 'source/**'
       - 'scripts/**'
+      - '3rdparty/**'
       - '.github/workflows/ubuntu-static.yml'
       
 jobs:

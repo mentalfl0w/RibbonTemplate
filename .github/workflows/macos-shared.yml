@@ -6,6 +6,7 @@ on:
       - 'include/**'
       - 'source/**'
       - 'scripts/**'
+      - '3rdparty/**'
       - '.github/workflows/macos-shared.yml'
   pull_request:
     paths:
@@ -13,7 +14,8 @@ on:
       - 'include/**'
       - 'source/**'
       - 'scripts/**'
-      - '.github/workflows/macos-shared.yml' 
+      - '3rdparty/**'
+      - '.github/workflows/macos-shared.yml'
       
 jobs:
   build:
