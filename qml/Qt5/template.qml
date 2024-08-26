@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Layouts 1.11
 import QtQuick.Controls 2.15
 import RibbonUI 1.0
-import "."
+import "components"
 
 RibbonWindow {
     id:root
@@ -50,10 +50,60 @@ RibbonWindow {
         id: tab_bar
     }
 
+    // MessageBarGroup
+    RibbonMessageBarGroup{
+            id: msg_bar
+            implicitWidth: windowItems.width
+            x: windowItems.x
+            y: titleBar.height + tab_bar.y + tab_bar.height - tab_bar.modernMargin + msg_bar.topMargin
+            target: windowItems
+            targetRect: Qt.rect(tab_bar.x,y,width,height)
+            Component.onCompleted: {
+                messageModel.append([{
+                        type: RibbonMessageBar.Info,
+                        text: "Info (default) MessageBar."
+                    },{
+                        type: RibbonMessageBar.Warning,
+                        text: "Warning defaults to multiline. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi luctus, purus a lobortis tristique, odio augue pharetra metus, ac placerat nunc mi nec dui. Vestibulum aliquam et nunc semper scelerisque. Curabitur vitae orci nec quam condimentum porttitor et sed lacus. Vivamus ac efficitur leo. Cras faucibus mauris libero, ac placerat erat euismod et. Donec pulvinar commodo odio sit amet faucibus. In hac habitasse platea dictumst. Duis eu ante commodo, condimentum nibh pellentesque, laoreet enim. Fusce massa lorem, ultrices eu mi a, fermentum suscipit magna. Integer porta purus pulvinar, hendrerit felis eget, condimentum mauris.Visit our website.",
+                        actionALabel: "Yes",
+                        actionBLabel: "No",
+                        externalURL: "https://github.com/mentalfl0w/RibbonUI",
+                        externalURLLabel: "Visit our website."
+                    },{
+                        type: RibbonMessageBar.Warning,
+                        text: "Warning MessageBar content.",
+                        actionALabel: "Action",
+                        externalURL: "https://github.com/mentalfl0w/RibbonUI",
+                        externalURLLabel: "Visit our website.",
+                        disableMultiline: true
+                    },{
+                        type: RibbonMessageBar.SevereWarning,
+                        text: "SevereWarning MessageBar with action buttons which defaults to multiline.",
+                        actionALabel: "Yes",
+                        actionBLabel: "No",
+                        externalURL: "https://github.com/mentalfl0w/RibbonUI",
+                        externalURLLabel: "Visit our website.",
+                    },{
+                        type: RibbonMessageBar.Blocked,
+                        text: "Blocked MessageBar - single line, with dismiss button and truncated text. Truncation is not available if you use action buttons or multiline and should be used sparingly. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi luctus, purus a lobortis tristique, odio augue pharetra metus, ac placerat nunc mi nec dui. Vestibulum aliquam et nunc semper scelerisque. Curabitur vitae orci nec quam condimentum porttitor et sed lacus. Vivamus ac efficitur leo. Cras faucibus mauris libero, ac placerat erat euismod et. Donec pulvinar commodo odio sit amet faucibus. In hac habitasse platea dictumst. Duis eu ante commodo, condimentum nibh pellentesque, laoreet enim. Fusce massa lorem, ultrices eu mi a, fermentum suscipit magna. Integer porta purus pulvinar, hendrerit felis eget, condimentum mauris.",
+                    },{
+                        type: RibbonMessageBar.Success,
+                        text: "Success MessageBar with single line and action buttons.",
+                        actionALabel: "Yes",
+                        actionBLabel: "No",
+                        externalURL: "https://github.com/mentalfl0w/RibbonUI",
+                        externalURLLabel: "Visit our website."
+                    },{
+                        type: RibbonMessageBar.Error,
+                        text: "Error MessageBar with single line, with dismiss button.",
+                        externalURL: "https://github.com/mentalfl0w/RibbonUI",
+                        externalURLLabel: "Visit our website."
+                    }])
+            }
+        }
+
     // MainView is behind TabBar
     MainView{
-        topPadding: tab_bar.height
-        bottomPadding: bottom_bar.height
         pageWidth: (page_slider.value / 100.0) * width
     }
 
@@ -123,12 +173,47 @@ RibbonWindow {
         blurEnabled: true
         blurTarget: root.windowItems
         radius: borderRadius
-        pageModel: [{"menu_text":"Home", "menu_icon":RibbonIcons.Home, "type":RibbonBackStageView.MenuItemLocation.Head, "sourceComponent":t_content, "sourceArgs":{'pageName':"Home"}},
-            {"menu_text":"File", "menu_icon":RibbonIcons.Document, "type":RibbonBackStageView.MenuItemLocation.Head, "sourceComponent":t_content, "sourceArgs":{'pageName':"File"}},
-            {"menu_text":"Search", "menu_icon":RibbonIcons.Search, "type":RibbonBackStageView.MenuItemLocation.Body, "sourceComponent":t_content, "sourceArgs":{'pageName':"Search"}},
-            {"menu_text":"Account", "menu_icon":RibbonIcons.PersonAccounts, "type":RibbonBackStageView.MenuItemLocation.Tail, "clickOnly":true, "clickFunc": ()=>console.log("Menu Account clicked")},
-            {"menu_text":"About", "menu_icon":RibbonIcons.Info, "type":RibbonBackStageView.MenuItemLocation.Tail, "clickOnly":true, "clickFunc": ()=>root.showWindow(Qt.resolvedUrl("about.qml"))},
-            {"menu_text":"Settings", "menu_icon":RibbonIcons.Settings, "type":RibbonBackStageView.MenuItemLocation.Tail, "sourceUrl":Qt.resolvedUrl("pages/SettingsMenuPage.qml")}]
+        RibbonBackStageMenuItem{
+            menuText: "Home"
+            menuIcon: RibbonIcons.Home
+            type: RibbonBackStageView.MenuItemLocation.Head
+            sourceComponent: t_content
+            sourceArgs:{'pageName':"Home"}
+        }
+        RibbonBackStageMenuItem{
+            menuText: "File"
+            menuIcon: RibbonIcons.Document
+            type: RibbonBackStageView.MenuItemLocation.Head
+            sourceComponent: t_content
+            sourceArgs:{'pageName':"File"}
+        }
+        RibbonBackStageMenuItem{
+            menuText: "Search"
+            menuIcon: RibbonIcons.Search
+            type: RibbonBackStageView.MenuItemLocation.Body
+            sourceComponent: t_content
+            sourceArgs:{'pageName':"Search"}
+        }
+        RibbonBackStageMenuItem{
+            menuText: "Account"
+            menuIcon: RibbonIcons.PersonAccounts
+            type: RibbonBackStageView.MenuItemLocation.Tail
+            clickOnly: true
+            clickFunc: ()=>console.log("Menu Account clicked")
+        }
+        RibbonBackStageMenuItem{
+            menuText: "About"
+            menuIcon: RibbonIcons.Info
+            type: RibbonBackStageView.MenuItemLocation.Tail
+            clickOnly: true
+            clickFunc: ()=>root.showWindow(Qt.resolvedUrl("about.qml"))
+        }
+        RibbonBackStageMenuItem{
+            menuText: "Settings"
+            menuIcon: RibbonIcons.Settings
+            type: RibbonBackStageView.MenuItemLocation.Tail
+            sourceUrl: Qt.resolvedUrl("pages/SettingsMenuPage.qml")
+        }
         Component{
             id: t_content
             RibbonBackStagePage{

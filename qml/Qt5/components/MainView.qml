@@ -7,6 +7,7 @@ import RibbonUI 1.0
 RibbonPaperView{
     id: view
     anchors.fill: parent
+    isMainView: true
     spacing: 0
     ColumnLayout{
         Layout.alignment: Qt.AlignCenter
